@@ -22,18 +22,17 @@ public class YarnController {
 
  private final YarnService service;
 
- // hämta alla garner till lista
  @GetMapping("/yarns")
  public List<Yarn> getYarns(){
   return service.getYarns();
  }
 
- @PostMapping("/foods")
+ @PostMapping("/yarns")
  public void saveNewYarn(@RequestBody Yarn yarn){
   service.saveNewYarn(yarn);
  }
 
- @GetMapping("/foods/wool")
+ @GetMapping("/yarns/wool")
  public List<String> getWoolYarns(){
   return service.getWoolYarns();
  }
