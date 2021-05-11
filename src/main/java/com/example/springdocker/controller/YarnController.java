@@ -22,6 +22,7 @@ public class YarnController {
 
  private final YarnService service;
 
+ // hämta alla garner till lista
  @GetMapping("/yarns")
  public List<Yarn> getYarns(){
   return service.getYarns();
