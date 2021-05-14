@@ -17,8 +17,20 @@ public class FoodService {
         return repository.findAll();
     }
 
-    public void saveNewFood(Food food) {
+    public boolean saveNewFood(Food food) {
+        List<Food> ids = repository.findFoodById(food.getId());
+        boolean taken = false;
+        for(Food f : ids){
+            if(f.getId().equals(food.getId())){
+                taken = true;
+            }
+        }
+        if(taken){
+            return false;
+        }
+
         repository.save(food);
+        return true;
     }
 
     public List<String> getCookableFoods() {
