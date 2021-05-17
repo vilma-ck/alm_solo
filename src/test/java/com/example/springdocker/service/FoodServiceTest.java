@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +58,6 @@ class FoodServiceTest {
 
     }
 
-    @Disabled
     @Test
     void saveNewFood_success() {
         Food foodMock = new Food("001", "Grönkål", true, true);
@@ -73,30 +73,19 @@ class FoodServiceTest {
 
     }
 
-    @Disabled
     @Test
     void saveNewFood_fail() {
         Food foodMock = new Food("001", "Grönkål", true, true);
         mockRepository.save(foodMock);
         Food foodTest = new Food("001", "Grönkål", true, true);
 
-        when(mockRepository.save(foodTest)).thenReturn(foodTest);
-        // metodanrop
-        Food success = foodService.saveNewFood(foodTest);
+        when(mockRepository.findFoodByIdAndName(anyString(), anyString())).thenReturn(true);
 
-        System.out.println(mockRepository.save(foodTest));
-        System.out.println(foodService.getFoods());
-        System.out.println(success);
+        // metodanrop som executable
+        assertThrows(ResponseStatusException.class, () -> foodService.saveNewFood(foodTest));
 
-
-        assertEquals(foodTest.getId(), success.getId());
-        //verify(mockRepository, times(2)).save(any());
-        verify(mockRepository).findFoodByIdAndName(anyString(), anyString());
-/**
-        assertEquals(false, success);
         verify(mockRepository, times(1)).save(any());
-        verify(mockRepository).findFoodById(anyString());
- **/
+        verify(mockRepository).findFoodByIdAndName(anyString(), anyString());
     }
 
     @Test
