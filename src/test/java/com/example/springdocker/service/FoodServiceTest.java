@@ -63,13 +63,13 @@ class FoodServiceTest {
         Food foodMock = new Food("001", "Grönkål", true, true);
         mockRepository.save(foodMock);
         Food foodTest = new Food("002", "Entrecote", false, false);
-
+        when(mockRepository.save(foodTest)).thenReturn(foodTest);
         // metodanrop
-        boolean success = foodService.saveNewFood(foodTest);
+        Food success = foodService.saveNewFood(foodTest);
 
-        assertEquals(true, success);
+        assertEquals(foodTest.getId(), success.getId());
         verify(mockRepository, times(2)).save(any());
-        verify(mockRepository).findFoodById(anyString());
+
     }
 
     @Disabled
@@ -81,7 +81,7 @@ class FoodServiceTest {
 
         when(mockRepository.save(foodTest)).thenReturn(foodTest);
         // metodanrop
-        boolean success = foodService.saveNewFood(foodTest);
+        Food success = foodService.saveNewFood(foodTest);
 
         System.out.println(mockRepository.save(foodTest));
         System.out.println(foodService.getFoods());
