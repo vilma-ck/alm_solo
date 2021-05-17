@@ -17,9 +17,12 @@ public class FoodService {
         return repository.findAll();
     }
 
-    public void saveNewFood(Food food) {
-        repository.save(food);
+    public Food saveNewFood(Food food) {
+        Food f = repository.save(food);
+        System.out.println(f);
+       return f;
     }
+
 
     public List<String> getCookableFoods() {
         // hämtar alla Foods som vi kan laga
