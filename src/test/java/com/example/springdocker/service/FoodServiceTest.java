@@ -88,7 +88,20 @@ class FoodServiceTest {
         verify(mockRepository).findFoodByIdAndName(anyString(), anyString());
     }
 
+    @Disabled
     @Test
     void getCookableFoods() {
+        Food food1 = new Food("001", "Grönkål", true, true);
+        Food food2 = new Food("002", "Entrecote", false, false);
+        mockRepository.save(food1);
+        mockRepository.save(food2);
+
+        when(mockRepository.findFoodById(anyString())).thenReturn((List<Food>) food1);
+
+        List<String> actual = foodService.getCookableFoods();
+
+        System.out.println(actual);
+
+
     }
 }
