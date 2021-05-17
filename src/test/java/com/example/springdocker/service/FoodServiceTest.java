@@ -69,6 +69,7 @@ class FoodServiceTest {
 
         assertEquals(foodTest.getId(), success.getId());
         verify(mockRepository, times(2)).save(any());
+        verify(mockRepository).findFoodByIdAndName(anyString(), anyString());
 
     }
 
@@ -86,6 +87,11 @@ class FoodServiceTest {
         System.out.println(mockRepository.save(foodTest));
         System.out.println(foodService.getFoods());
         System.out.println(success);
+
+
+        assertEquals(foodTest.getId(), success.getId());
+        //verify(mockRepository, times(2)).save(any());
+        verify(mockRepository).findFoodByIdAndName(anyString(), anyString());
 /**
         assertEquals(false, success);
         verify(mockRepository, times(1)).save(any());
