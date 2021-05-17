@@ -12,4 +12,6 @@ public interface FoodRepository extends MongoRepository<Food, String> {
     List<Food> findFoodByCanICookIt(boolean canCook);
 
     List<Food> findFoodById(String id);
+
+    boolean findFoodByIdAndName(String id, String name);
 }
