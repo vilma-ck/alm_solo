@@ -18,7 +18,14 @@ services:
         depends_on:
             -   mongo
 
-#    app-name:
-#        build: .
-#        ports:
-#        -   8081:8080
+    app-name:
+        image: java-name
+        ports:
+        -   8082:8080
+        environment:
+            DB_HOST: mongo
+            DB_PORT: 27010
+            DB_NAME: db-prod
+            SPRING_PROFILES_ACTIVE: prod
+        depends_on:
+            -   mongo
