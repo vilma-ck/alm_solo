@@ -19,17 +19,19 @@ public class FoodService {
         return repository.findAll();
     }
 
-    public Food saveNewFood(Food food) {
+    public void saveNewFood(Food food) {
+        repository.save(food);
+    }
 
+    public Food saveNewFoodExt(Food food){
         boolean found = repository.findFoodByIdAndName(food.getId(), food.getName());
         if(found){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Food already exists.");
         }
         Food f = repository.save(food);
         //System.out.println(f);
-       return f;
+        return f;
     }
-
 
     public List<String> getCookableFoods() {
         // hämtar alla Foods som vi kan laga
@@ -40,4 +42,5 @@ public class FoodService {
                 .map(food -> food.getName())
                 .collect(Collectors.toList());
     }
+
 }

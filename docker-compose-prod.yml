@@ -4,6 +4,8 @@ services:
         image: mongo
         ports:
             - 27017:27017
+        volumes:
+            - db-data:/data/db
 #        environment:
 #            MONGO_INITDB_ROOT_USERNAME: root
 #            MONGO_INITDB_ROOT_PASSWORD: example123
@@ -19,13 +21,17 @@ services:
             -   mongo
 
     app-name:
-        image: java-name
+        image: java-app
         ports:
         -   8082:8080
         environment:
             DB_HOST: mongo
-            DB_PORT: 27010
+            DB_PORT: 27017
             DB_NAME: db-prod
             SPRING_PROFILES_ACTIVE: prod
         depends_on:
             -   mongo
+
+volumes:
+    db-data:
+        driver: local
